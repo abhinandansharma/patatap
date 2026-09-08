@@ -4,7 +4,9 @@ Press a key, get a sound and a shape. Every letter from A to Z plays a synthesis
 
 **Play it:** https://abhinandansharma.github.io/patatap/
 
-![Patatap](public/og.png)
+![Patatap while recording a loop](screenshots/play.png)
+
+![A shared loop, opened from a link](screenshots/shared.png)
 
 A study of [Patatap](https://patatap.com) by Jono Brandel. The 2020 version used Paper.js and a folder of MP3s. This one ships no audio files at all.
 

@@ -147,7 +147,15 @@ themeBtn.addEventListener('click', () => setTheme(document.documentElement.datas
 function togglePerf() { document.body.classList.toggle('perf'); if (document.body.classList.contains('perf')) say('Performance mode. Press Escape to bring the interface back.'); }
 $('perf').addEventListener('click', togglePerf);
 
-connectMidi((index, velocity) => press(LETTERS[index], velocity), (text) => { $('status').textContent = text; });
+// MIDI is requested after the first gesture, so the page never asks for a permission on load.
+let midiWired = false;
+function wireMidi() {
+  if (midiWired) return;
+  midiWired = true;
+  connectMidi((index, velocity) => press(LETTERS[index], velocity), (text) => { $('status').textContent = text; });
+}
+addEventListener('pointerdown', wireMidi, { once: true });
+addEventListener('keydown', wireMidi, { once: true });
 
 let pendingCode: string | null = null;
 const m = /#loop=([0-9a-z.-]+)/.exec(location.hash);
