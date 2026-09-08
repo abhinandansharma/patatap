@@ -1,13 +1,33 @@
 # Patatap
 
-#### This patatap clone is created using [paperJS](http://paperjs.org/) and [howlerJS](https://howlerjs.com/)
-#### Each key is mapped with a different sound and a random circle animation.
-## How to play
-### Press any key from A - Z and it will play a unique sound on each key with a random colored circle animation.
-### [Play it](https://abhinandansharma.github.io/patatap/) · [CodePen version](https://codepen.io/abhinandansharma/pen/abNmPoJ)
-#### Works with a keyboard or by tapping the screen on touch devices.
-##### click on the image below to watch a short demo 👇
-[![patatap demo](https://user-images.githubusercontent.com/35263182/98684861-aecd0f00-238c-11eb-97aa-221bc26af0d6.png)](https://twitter.com/i/status/1296337387170144257)
-<img width="1793" height="1140" alt="Screenshot 2025-08-02 at 12 37 14 AM" src="https://github.com/user-attachments/assets/3891a115-2316-4ae6-8a11-fbea3a1892ad" />
-#### Original patatap - https://patatap.com/
+Press a key, get a sound and a shape. Every letter from A to Z plays a synthesised hit and draws a motif on a full-screen canvas: ripples, shards, springs, blooms, beams. Record a two-bar loop, share it as a link, play it from a MIDI controller or by tapping a phone.
 
+**Play it:** https://abhinandansharma.github.io/patatap/
+
+![Patatap](public/og.png)
+
+A study of [Patatap](https://patatap.com) by Jono Brandel. The 2020 version used Paper.js and a folder of MP3s. This one ships no audio files at all.
+
+## How it works
+
+- **Sound.** All twenty-six hits come from [Ambiently](https://github.com/abhinandansharma/ambiently)'s `createHits()`: kicks, snares, hats, claps, toms, plucks, bells, chimes, stabs, zaps, lasers, sweeps and risers built from oscillators, filters and noise on the Web Audio clock. Left hand is drums, right hand is melody; the bottom row transposes.
+- **Shapes.** A 2D canvas renderer. Each hit spawns a shape whose lifetime matches the sound's length, eased or sprung, with a slow frame fade so motion leaves trails. Twenty motifs.
+- **Loop.** `Enter` starts recording a two-bar, sixteenth-note loop at the current tempo; presses are quantised as you play and loop immediately. `Space` plays or stops, `Backspace` clears, arrow keys change the tempo. "Copy loop link" puts the loop in the URL (`#loop=110-a.s..d`), and anyone who opens it can play and add to it.
+- **Input.** Keyboard, multi-touch (the screen is a 13 by 2 grid of pads), and Web MIDI (any note-on maps onto the letters).
+- **Modes.** Ink and paper themes, and a performance mode that hides the interface (`Shift+F`, `Escape` to return).
+
+## Run it
+
+```bash
+npm install
+npm run dev        # http://localhost:5173/patatap/
+npm run build      # static site in dist/
+```
+
+Set `AMBIENTLY_LOCAL=1` to import Ambiently from a sibling checkout instead of npm while working on both.
+
+## Stack
+
+Vite, TypeScript, Web Audio, Canvas 2D, Web MIDI. Space Grotesk for text and [Geist Pixel](https://vercel.com/font) (Square) for the numerals, self-hosted. Deployed to GitHub Pages by the workflow in `.github/workflows/pages.yml`.
+
+Built by [Abhinandan Sharma](https://abhinandansharma.github.io/portfolio/).

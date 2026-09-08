@@ -1,265 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Patatap — press a key, hear a sound</title>
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://abhinandansharma.github.io/patatap/">
-    <meta property="og:title" content="Patatap">
-    <meta property="og:description" content="Press any key from A to Z, or tap the screen, and get a sound and an animated circle. Built with Paper.js and Howler.js.">
-    <meta property="og:image" content="https://abhinandansharma.github.io/patatap/og.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:creator" content="@notjustadev">
-    <meta name="description" content="A Patatap clone: every key from A to Z plays a sound and draws an animated circle. Built with Paper.js and Howler.js.">
-    <meta name="theme-color" content="#000000">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%231abc9c'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="circles.css">
-    <!-- Load the Paper.js library -->
-    <script type="text/javascript" src="assets/JS/paper-full.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
-    <!-- Define inlined PaperScript associate it with myCanvas -->
-    <script type="text/paperscript" canvas="myCanvas">
-
-    //an object containing all the colors and sounds on different keypresses.
-    var keyData = {
-	q: {
-		sound: new Howl({
-          src: ['assets/sounds/bubbles.mp3'],
-          html5: true
-		}),
-		color: '#1abc9c'
-	},
-	w: {
-		sound: new Howl({
-          src: ['assets/sounds/clay.mp3'],
-          html5: true
-		}),
-		color: '#2ecc71'
-	},
-	e: {
-		sound: new Howl({
-          src: ['assets/sounds/confetti.mp3'],
-          html5: true
-		}),
-		color: '#3498db'
-	},
-	r: {
-		sound: new Howl({
-          src: ['assets/sounds/corona.mp3'],
-          html5: true
-		}),
-		color: '#9b59b6'
-	},
-		t: {
-		sound: new Howl({
-          src: ['assets/sounds/dotted-spiral.mp3'],
-          html5: true
-		}),
-		color: '#34495e'
-	},
-	y: {
-		sound: new Howl({
-          src: ['assets/sounds/flash-1.mp3'],
-          html5: true
-		}),
-		color: '#16a085'
-	},
-	u: {
-		sound: new Howl({
-          src: ['assets/sounds/flash-2.mp3'],
-          html5: true
-		}),
-		color: '#27ae60'
-	},
-	i: {
-		sound: new Howl({
-          src: ['assets/sounds/flash-3.mp3'],
-          html5: true
-		}),
-		color: '#2980b9'
-	},
-	o: {
-		sound: new Howl({
-            src: ['assets/sounds/glimmer.mp3'],
-            html5: true
-		}),
-		color: '#8e44ad'
-	},
-	p: {
-		sound: new Howl({
-          src: ['assets/sounds/moon.mp3'],
-          html5: true
-		}),
-		color: '#2c3e50'
-	},
-	a: {
-		sound: new Howl({
-          src: ['assets/sounds/pinwheel.mp3'],
-          html5: true
-		}),
-		color: '#f1c40f'
-	},
-	s: {
-		sound: new Howl({
-          src: ['assets/sounds/piston-1.mp3'],
-          html5: true
-		}),
-		color: '#e67e22'
-	},
-		d: {
-		sound: new Howl({
-          src: ['assets/sounds/piston-2.mp3'],
-          html5: true
-		}),
-		color: '#e74c3c'
-	},
-	f: {
-		sound: new Howl({
-          src: ['assets/sounds/prism-1.mp3'],
-          html5: true
-		}),
-		color: '#95a5a6'
-	},
-	g: {
-		sound: new Howl({
-          src: ['assets/sounds/prism-2.mp3'],
-          html5: true
-		}),
-		color: '#f39c12'
-	},
-	h: {
-		sound: new Howl({
-          src: ['assets/sounds/prism-3.mp3'],
-          html5: true
-		}),
-		color: '#d35400'
-	},
-	j: {
-		sound: new Howl({
-          src: ['assets/sounds/splits.mp3'],
-          html5: true
-		}),
-		color: '#1abc9c'
-	},
-	k: {
-		sound: new Howl({
-          src: ['assets/sounds/squiggle.mp3'],
-          html5: true
-		}),
-		color: '#2ecc71'
-	},
-	l: {
-		sound: new Howl({
-          src: ['assets/sounds/strike.mp3'],
-          html5: true
-		}),
-		color: '#3498db'
-	},
-	z: {
-		sound: new Howl({
-          src: ['assets/sounds/suspension.mp3'],
-          html5: true
-		}),
-		color: '#9b59b6'
-	},
-	x: {
-		sound: new Howl({
-          src: ['assets/sounds/timer.mp3'],
-          html5: true
-		}),
-		color: '#34495e'
-	},
-	c: {
-		sound: new Howl({
-          src: ['assets/sounds/ufo.mp3'],
-          html5: true
-		}),
-		color: '#16a085'
-	},
-	v: {
-		sound: new Howl({
-          src: ['assets/sounds/veil.mp3'],
-          html5: true
-		}),
-		color: '#27ae60'
-	},
-	b: {
-		sound: new Howl({
-          src: ['assets/sounds/wipe.mp3'],
-          html5: true
-		}),
-		color: '#2980b9'
-	},
-	n: {
-		sound: new Howl({
-            src: ['assets/sounds/zig-zag.mp3'],
-            html5: true
-		}),
-		color: '#8e44ad'
-	},
-	m: {
-		sound: new Howl({
-          src: ['assets/sounds/moon.mp3'],
-          html5: true
-		}),
-		color: '#2c3e50'
-	}
-}
-
-    var circles = [];
-    var keys = Object.keys(keyData);
-
-    // Draw a circle for a key at a point (random if none given) and play its sound.
-    function trigger(key, at) {
-        var data = keyData[key];
-        if (!data) return;
-        var point = at || (new Point(view.size.width, view.size.height) * Point.random());
-        var circle = new Path.Circle(point, Math.min(500, view.size.width * 0.5));
-        circle.fillColor = data.color;
-        data.sound.play();
-        circles.push(circle);
-        hideHint();
-    }
-
-    function onKeyDown(event) {
-        trigger(String(event.key).toLowerCase());
-    }
-
-    // Touch and mouse: tap anywhere to play a random key at that spot.
-    function onMouseDown(event) {
-        trigger(keys[Math.floor(Math.random() * keys.length)], event.point);
-    }
-
-    function onFrame(event) {
-        // Walk backwards so removing an item never skips the next one.
-        for (var i = circles.length - 1; i >= 0; i--) {
-            circles[i].fillColor.hue += 1;
-            circles[i].scale(.9);
-            if (circles[i].area < 1) {
-                circles[i].remove();
-                circles.splice(i, 1);
-            }
-        }
-    }
-
-    var hintHidden = false;
-    function hideHint() {
-        if (hintHidden) return;
-        hintHidden = true;
-        var hint = document.getElementById('hint');
-        if (hint) hint.className = 'hidden';
-    }
-    </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Patatap</title>
+  <meta name="description" content="Press a key, get a sound and a shape. Twenty-six synthesised hits, canvas motion, a loop recorder you can share by link, MIDI and touch." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://abhinandansharma.github.io/patatap/" />
+  <meta property="og:title" content="Patatap" />
+  <meta property="og:description" content="Press a key, get a sound and a shape. Twenty-six synthesised hits, canvas motion, a loop recorder you can share by link, MIDI and touch." />
+  <meta property="og:image" content="https://abhinandansharma.github.io/patatap/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@notjustadev" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0b0b'/%3E%3Ccircle cx='32' cy='32' r='16' fill='none' stroke='%23e0202a' stroke-width='6'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23f1ede4'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
 </head>
-
 <body>
-    <canvas id="myCanvas" resize></canvas>
-    <p id="hint">Press any key from A to Z, or tap the screen.</p>
-    <a class="made-by" href="https://abhinandansharma.github.io/portfolio/" target="_blank" rel="noreferrer" aria-label="Made by Abhinandan Sharma. Opens the portfolio."><svg class="made-by-mark" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true"><defs><clipPath id="mb-clip"><rect width="512" height="512" rx="112"/></clipPath></defs><rect width="512" height="512" rx="112" fill="#e0202a"/><g clip-path="url(#mb-clip)"><path d="M256 78 C156 78 100 154 100 254 L100 540 L412 540 L412 254 C412 154 356 78 256 78 Z" fill="#0b0b0b"/><path d="M404 206 Q470 178 518 132 Q492 224 410 252 Z" fill="#0b0b0b"/><path d="M406 232 Q468 240 512 292 Q462 262 408 250 Z" fill="#0b0b0b"/><path d="M118 232 Q256 196 394 232 L394 262 Q256 304 118 262 Z" fill="#f1ede4"/><path d="M152 248 L238 234 L242 270 L166 280 Z" fill="#0b0b0b"/><path d="M360 248 L274 234 L270 270 L346 280 Z" fill="#0b0b0b"/></g></svg><span>Made by <b>Abhinandan</b></span></a>
-</body>
+  <canvas id="stage" aria-hidden="true"></canvas>
 
+  <div class="ui">
+    <header class="top">
+      <div class="brand"><i></i>Patatap</div>
+      <div class="top-right">
+        <span class="status" id="status"></span>
+        <button class="pill" id="theme" aria-label="Toggle theme">Paper</button>
+        <button class="pill" id="perf" aria-label="Performance mode, hides the interface">Perform <kbd style="font-family:var(--pixel)">F</kbd></button>
+      </div>
+    </header>
+
+    <div class="hint" id="hint">
+      <div>
+        <h1>Press <em>any key</em>.</h1>
+        <p>A to Z each play a synthesised sound and draw a shape. Left hand is drums, right hand is melody. <kbd>Enter</kbd> records a two-bar loop, <kbd>Space</kbd> plays it, tap anywhere on a phone.</p>
+      </div>
+    </div>
+
+    <footer class="bottom">
+      <div class="transport">
+        <button class="pill rec" id="rec" aria-pressed="false"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="5" fill="currentColor"/></svg><span class="label">Record</span> <kbd style="font-family:var(--pixel)">↵</kbd></button>
+        <button class="pill" id="play" aria-pressed="false"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z" fill="currentColor"/></svg><span class="label" id="play-label">Play</span> <kbd style="font-family:var(--pixel)">␣</kbd></button>
+        <button class="pill" id="clear">Clear</button>
+        <span class="pill bpm"><button id="bpm-down" aria-label="Slower">−</button><b id="bpm">110</b><button id="bpm-up" aria-label="Faster">+</button><span style="color:var(--fg-3)">bpm</span></span>
+        <button class="pill" id="share">Copy loop link</button>
+        <div class="steps" id="steps" aria-hidden="true"></div>
+      </div>
+      <div class="legend" id="legend" aria-hidden="true"></div>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <a class="made-by" href="https://abhinandansharma.github.io/portfolio/" target="_blank" rel="noreferrer" aria-label="Made by Abhinandan Sharma. Opens the portfolio."><svg class="made-by-mark" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true"><defs><clipPath id="mb-clip"><rect width="512" height="512" rx="112"/></clipPath></defs><rect width="512" height="512" rx="112" fill="#e0202a"/><g clip-path="url(#mb-clip)"><path d="M256 78 C156 78 100 154 100 254 L100 540 L412 540 L412 254 C412 154 356 78 256 78 Z" fill="#0b0b0b"/><path d="M404 206 Q470 178 518 132 Q492 224 410 252 Z" fill="#0b0b0b"/><path d="M406 232 Q468 240 512 292 Q462 262 408 250 Z" fill="#0b0b0b"/><path d="M118 232 Q256 196 394 232 L394 262 Q256 304 118 262 Z" fill="#f1ede4"/><path d="M152 248 L238 234 L242 270 L166 280 Z" fill="#0b0b0b"/><path d="M360 248 L274 234 L270 270 L346 280 Z" fill="#0b0b0b"/></g></svg><span>Made by <b>Abhinandan</b></span></a>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>
